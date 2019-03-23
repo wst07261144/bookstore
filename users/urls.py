@@ -1,8 +1,11 @@
 from django.conf.urls import url
+from django.urls import path
+
 from users import views
 
 app_name = 'users'
 
 urlpatterns = [
-    url('register', views.register, name='register'), # 用户注册
+    path('register/', views.register, name='register'), # 用户注册
+    path('register_handle/', views.register_handle, name='register_handle'),
 ]

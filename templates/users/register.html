@@ -9,7 +9,7 @@
     <div class="register_con">
         <div class="l_con fl">
             <a class="reg_logo"><img src="/static/images/logo.png" style="width: 160px; height: 53px;"></a>
-            <div class="reg_slogan">学计算机  ·  来尚硅谷</div>
+            <div class="reg_slogan">学计算机 · 来尚硅谷</div>
             <div class="reg_banner"></div>
         </div>
 
@@ -21,6 +21,7 @@
             <div class="reg_form clearfix">
                 <form method="post" action="/user/register_handle/">
                     {% csrf_token %}
+                    {% if errmsg %}<div class='imp_message'>{{ errmsg }}</div>{% endif %}
                 <ul>
                     <li>
                         <label>用户名:</label>
@@ -49,7 +50,6 @@
                     </li>
                     <li class="reg_sub">
                         <input type="submit" value="注 册" name="">
-                        {{errmsg}}
                     </li>
                 </ul>
                 </form>
