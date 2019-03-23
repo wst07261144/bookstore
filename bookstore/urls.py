@@ -19,5 +19,7 @@ from django.conf.urls import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path(r'tinymce/', include('tinymce.urls')),
     path('user/', include('users.urls', namespace='user')),
+    path('', include('books.urls', namespace='books')),
 ]

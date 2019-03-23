@@ -38,8 +38,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users'
+    'tinymce',  # 富文本编辑器
+    'users',
+    'books', # 商品模块
+
 ]
+
+TINYMCE_DEFAULT_CONFIG = {
+    'theme': 'advanced',
+    'width': 600,
+    'height': 400,
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
