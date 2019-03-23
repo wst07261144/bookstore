@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import url
 from django.conf.urls import include
 
 urlpatterns = [
@@ -22,4 +23,5 @@ urlpatterns = [
     path(r'tinymce/', include('tinymce.urls')),
     path('user/', include('users.urls', namespace='user')),
     path('', include('books.urls', namespace='books')),
+    url(r'^cart/', include('cart.urls', namespace='cart')),  # 购物车模块
 ]
