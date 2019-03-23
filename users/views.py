@@ -98,3 +98,20 @@ def logout(request):
     request.session.flush()
     # 跳转到首页
     return redirect(reverse('books:index'))
+
+@login_required
+def user(request):
+    '''用户中心-信息页'''
+    passport_id = request.session.get('passport_id')
+    # 获取用户的基本信息
+    addr = Address.objects.get_default_address(passport_id=passport_id)
+
+    books_li = []
+
+    context = {
+        'addr': addr,
+        'page': 'user',
+        'books_li': books_li
+    }
+
+    return render(request, 'users/user_center_info.html', context)

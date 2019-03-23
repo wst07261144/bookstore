@@ -11,4 +11,5 @@ urlpatterns = [
     path('login/', views.login, name='login'),
     path('login_check/', views.login_check, name='login_check'), # 用户登录校验
     path('logout/', views.logout, name='logout'), # 退出用户登录
+    url(r'^$', views.user, name='user'), # 用户中心-信息页
 ]
