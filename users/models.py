@@ -53,7 +53,7 @@ class AddressManager(models.Manager):
                            is_default=is_default)
         return addr
 
-class PassPort(BaseModel):
+class Passport(BaseModel):
     '''用户模型类'''
 
     username = models.CharField(max_length=20, unique=True, verbose_name='用户名称')
@@ -74,7 +74,7 @@ class Address(BaseModel):
     zip_code = models.CharField(max_length=6, verbose_name='邮政编码')
     recipient_phone = models.CharField(max_length=11, verbose_name='联系电话')
     is_default = models.BooleanField(default=False, verbose_name='是否默认')
-    passport = models.ForeignKey('PassPort', verbose_name='账户', on_delete=models.CASCADE)
+    passport = models.ForeignKey('Passport', verbose_name='账户', on_delete=models.CASCADE)
 
     objects = AddressManager()
 

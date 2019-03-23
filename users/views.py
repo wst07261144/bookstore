@@ -3,6 +3,7 @@ import re
 from users.models import *
 import logging
 from django.http import HttpResponse, JsonResponse
+from utils.decorators import login_required
 
 # Create your views here.
 def register(request):
@@ -30,10 +31,10 @@ def register_handle(request):
         return render(request, 'users/register.html', {'errmsg': '邮箱不合法!'})
 
     # 进行业务处理:注册，向账户系统中添加账户
-    # PassPort.objects.create(username=username, password=password, email=email)
+    # Passport.objects.create(username=username, password=password, email=email)
     try:
         # TODO 不生效
-        PassPort.objects.add_one_passport(username=username, password=password, email=email)
+        Passport.objects.add_one_passport(username=username, password=password, email=email)
     except Exception as e:
         print("e: ", e)  # 把异常打印出来
         return render(request, 'users/register.html', {'errmsg': '用户名已存在！'})
@@ -69,7 +70,7 @@ def login_check(request):
         return JsonResponse({'res': 2})
 
     # 3.进行处理:根据用户名和密码查找账户信息
-    passport = PassPort.objects.get_one_passport(username=username, password=password)
+    passport = Passport.objects.get_one_passport(username=username, password=password)
 
     if passport:
         next_url = reverse('books:index')  # /user/
