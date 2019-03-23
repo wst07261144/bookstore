@@ -50,6 +50,8 @@ TINYMCE_DEFAULT_CONFIG = {
     'height': 400,
 }
 
+MEDIA_ROOT = os.path.join(BASE_DIR, "static")
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
