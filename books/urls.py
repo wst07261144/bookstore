@@ -7,4 +7,5 @@ app_name = 'books'
 
 urlpatterns = [
     path('', views.index, name='index'),
+    url(r'books/(?P<books_id>\d+)/$', views.detail, name='detail'), # 详情页
 ]
