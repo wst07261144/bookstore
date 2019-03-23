@@ -10,4 +10,5 @@ urlpatterns = [
     path('register_handle/', views.register_handle, name='register_handle'),
     path('login/', views.login, name='login'),
     path('login_check/', views.login_check, name='login_check'), # 用户登录校验
+    path('logout/', views.logout, name='logout'), # 退出用户登录
 ]

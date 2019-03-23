@@ -91,3 +91,10 @@ def login_check(request):
     else:
         # 用户名或密码错误
         return JsonResponse({'res': 0})
+
+def logout(request):
+    '''用户退出登录'''
+    # 清空用户的session信息
+    request.session.flush()
+    # 跳转到首页
+    return redirect(reverse('books:index'))
