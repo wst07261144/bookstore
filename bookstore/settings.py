@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'tinymce',  # 富文本编辑器
     'users',
     'books', # 商品模块
+    'order',
 
 ]
 
@@ -115,7 +116,8 @@ DATABASES = {
         'PASSWORD': '',
         'HOST': '127.0.0.1',
         'PORT': '3306',
-        'NAME': 'bookstore'
+        'NAME': 'bookstore',
+        # 'ATOMIC_REQUEST': True, # Django会自动在事务中，处理你的视图函数。如果视图函数抛出异常，Django会自动回滚事务；否则Django会提交事务。
     }
 }
 

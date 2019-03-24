@@ -24,4 +24,5 @@ urlpatterns = [
     path('user/', include('users.urls', namespace='user')),
     path('', include('books.urls', namespace='books')),
     re_path(r'^cart/', include('cart.urls', namespace='cart')),  # 购物车模块
+    re_path(r'^order/', include('order.urls', namespace='order')),  # 订单模块
 ]
