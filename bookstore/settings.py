@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'users',
     'books', # 商品模块
     'order',
-
+    'comments'
 ]
 
 TINYMCE_DEFAULT_CONFIG = {
