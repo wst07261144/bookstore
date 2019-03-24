@@ -58,7 +58,15 @@ CACHES = {
         "LOCATION": "redis://127.0.0.1:6379/2",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            "PASSWORD": ""
+            "PASSWORD": "",
+            # "PICKLE_VERSION": -1,  # Use the latest protocol version
+            # "SOCKET_CONNECT_TIMEOUT": 5,  # in seconds 建立连接超时设置
+            # "SOCKET_TIMEOUT": 5,  # in seconds 连接建立后的读写操作超时设置
+            # "COMPRESSOR": "django_redis.compressors.zlib.ZlibCompressor", # 支持压缩, 但默认是关闭的. 你可以激活它
+            # "COMPRESSOR": "django_redis.compressors.lzma.LzmaCompressor", # 使用 lzma 压缩
+            # "IGNORE_EXCEPTIONS": True, # redis 只作为缓存使用, 当它关闭时如果你不希望触发异常
+
+
         }
     }
 }

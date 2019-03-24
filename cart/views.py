@@ -63,7 +63,7 @@ def cart_count(request):
     cart_key = 'cart_%d' % request.session.get('passport_id')
     # res = conn.hlen(cart_key) 显示商品的条目数
     res = 0
-    res_list = conn.hvals(cart_key)
+    res_list = conn.hvals(cart_key) # 一个包含哈希表中所有域(field)值的列表。 当 key 不存在时，返回一个空表
 
     for i in res_list:
         res += int(i)
