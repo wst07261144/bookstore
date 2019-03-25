@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'users',
     'books', # 商品模块
     'order',
-    'comments'
+    'comments',
+    'django_extensions',
 ]
 
 TINYMCE_DEFAULT_CONFIG = {

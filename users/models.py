@@ -7,7 +7,8 @@ class PassportManager(models.Manager):
     def add_one_passport(self, username, password, email):
         '''添加一个账户信息'''
         # TODO 调用不到 TypeError: 'module' object is not callable
-        passport = super(PassportManager, self).create(username=username, password=get_hash(password), email=email)
+        # passport = super(PassportManager, self).create(username=username, password=get_hash(password), email=email)
+        passport = self.create(username=username, password=get_hash(password), email=email)
 
         # 3.返回passport
         return passport
@@ -15,6 +16,7 @@ class PassportManager(models.Manager):
     def get_one_passport(self, username, password):
         '''根据用户名密码查找账户的信息'''
         try:
+            # TODO 调用不到 TypeError: 'module' object is not callable
             passport = self.get(username=username, password=get_hash(password))
         except self.model.DoesNotExist:
             # 账户不存在

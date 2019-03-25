@@ -6,8 +6,8 @@ from books.models import Books
 # Create your models here.
 class Comments(BaseModel):
     disabled = models.BooleanField(default=False, verbose_name="禁用评论")
-    user = models.ForeignKey('users.Passport', verbose_name="用户ID")
-    book = models.ForeignKey('books.Books', verbose_name="书籍ID")
+    user = models.ForeignKey('users.Passport', verbose_name="用户ID", on_delete=None)
+    book = models.ForeignKey('books.Books', verbose_name="书籍ID", on_delete=None)
     content = models.CharField(max_length=1000, verbose_name="评论内容")
 
     class Meta:

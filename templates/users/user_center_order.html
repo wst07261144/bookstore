@@ -22,7 +22,7 @@
                 {# OrderInfo #}
                 {% for order in order_li %}
                 <ul class="order_list_th w978 clearfix">
-                    <li class="col01">{{ order.create_time }}</li>
+                    <li class="col01">{{ order.created_time }}</li>
                     <li class="col02">订单号：{{ order.order_id }}</li>
                     <li class="col02 stress">{{ order.status | order_status }}</li>
                 </ul>

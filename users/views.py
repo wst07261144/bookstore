@@ -35,8 +35,7 @@ def register_handle(request):
     # 进行业务处理:注册，向账户系统中添加账户
     # Passport.objects.create(username=username, password=password, email=email)
     try:
-        # TODO 不生效
-        Passport.objects.add_one_passport(username=username, password=password, email=email)
+        Passport.objects.create(username=username, password=password, email=email)
     except Exception as e:
         print("e: ", e)  # 把异常打印出来
         return render(request, 'users/register.html', {'errmsg': '用户名已存在！'})

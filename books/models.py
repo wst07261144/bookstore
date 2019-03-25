@@ -14,7 +14,7 @@ class BooksManager(models.Manager):
         '''根据商品类型id查询商品信息'''
 
         if sort == 'new':
-            order_by = ('-create_time',)
+            order_by = ('-created_time',)
         elif sort == 'hot':
             order_by = ('-sales', )
         elif sort == 'price':
