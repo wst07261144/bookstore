@@ -1,7 +1,7 @@
-{% extends 'base.html' %}
+{% extends 'users/base.html' %}
 {% load staticfiles %}
 {% load filters %}
-{% block title %}尚硅谷书店-首页{% endblock title %}
+{% block title %}尚硅谷书店-我的订单{% endblock title %}
 {% block topfiles %}
 {% endblock topfiles %}
 {% block body %}
@@ -24,7 +24,7 @@
                 <ul class="order_list_th w978 clearfix">
                     <li class="col01">{{ order.created_time }}</li>
                     <li class="col02">订单号：{{ order.order_id }}</li>
-                    <li class="col02 stress">{{ order.status | order_status }}</li>
+                    <li class="col02 stress">{{ order.status|order_status }}</li>
                 </ul>
 
                 <table class="order_list_table w980">
@@ -34,7 +34,7 @@
                                 {# 遍历出来的order_books是一个OrderGoods对象 #}
                                 {% for order_books in order.order_books_li %}
                                 <ul class="order_book_list clearfix">                   
-                                    <li class="col01"><img src="{% static order_books.books.image %}"></li>
+                                    <li class="col01"><img src="{% static order_books.books.image.url %}"></li>
                                     <li class="col02">{{ order_books.books.name }}<em>{{ order_books.books.price }}元/{{ order_books.books.unit }}</em></li>
                                     <li class="col03">{{ order_books.count }}</li>
                                     <li class="col04">{{ order_books.amount }}元</li>

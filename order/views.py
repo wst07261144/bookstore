@@ -42,7 +42,7 @@ def order_place(request):
         books = Books.objects.get_books_by_id(books_id=id)
         # 从redis中获取用户要购买的商品的数目
         count = conn.hget(cart_key, id)
-        books.count = count
+        books.count = int(count)
         # 计算商品的小计
         amount = int(count) * books.price
         books.amount = amount

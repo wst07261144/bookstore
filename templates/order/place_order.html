@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'users/base.html' %}
 {% load staticfiles %}
 {% block title %}尚硅谷书店-我的订单{% endblock title %}
 {% block topfiles %}
@@ -12,7 +12,7 @@
             <dt>寄送到：</dt>
             <dd><input type="radio" name="addr_id" value="{{ addr.id }}" checked="">{{ addr.recipient_addr }} （{{ addr.recipient_name }} 收） {{ addr.recipient_phone }}</dd>
         </dl>
-        <a href="user_center_site.html" class="edit_site">编辑收货地址</a>
+        <a href="{% url 'users:address' %}" class="edit_site">编辑收货地址</a>
 
     </div>
 
@@ -42,7 +42,7 @@
         {% for book in books_li %}
         <ul class="book_list_td clearfix">
             <li class="col01">{{ forloop.counter }}</li>
-            <li class="col02"><img src="{% static book.image %}"></li>
+            <li class="col02"><img src="{% static book.image.url %}"></li>
             <li class="col03">{{ book.name }}</li>
             <li class="col04">{{ book.unit }}</li>
             <li class="col05">{{ book.price }}元</li>

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'books', # 商品模块
     'order',
     'comments',
+    'users.templatetags.filters',  # 前端过滤器
     'django_extensions',
 ]
 
