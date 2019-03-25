@@ -1,29 +1,13 @@
 {% extends 'users/base.html' %}
 {% load staticfiles %}
-<style type="text/css">
-.comment {
-    background-color: #c40000;
-    color: #fff;
-    margin-left: 10px;
-    position: relative;
-    z-index: 10;
-    display: inline-block;
-    width: 178px;
-    height: 38px;
-    border: 1px solid #c40000;
-    font-size: 14px;
-    line-height: 38px;
-    text-align: center;
-}
-</style>
 {% block title %}尚硅谷书店-首页{% endblock title %}
 {% block body %}
     <div class="navbar_con">
         {% csrf_token %}
         <div class="navbar clearfix">
             <div class="subnav_con fl">
-                <h1>全部商品分类</h1> 
-                <span></span>           
+                <h1>全部商品分类</h1>
+                <span></span>
                 <ul class="subnav">
                     <li><a href="#" class="python">Python</a></li>
                     <li><a href="#" class="javascript">Javascript</a></li>
@@ -66,8 +50,8 @@
                 <div class="num_add fl">
                     <input type="text" class="num_show fl" value="1">
                     <a href="javascript:;" class="add fr">+</a>
-                    <a href="javascript:;" class="minus fr">-</a>   
-                </div> 
+                    <a href="javascript:;" class="minus fr">-</a>
+                </div>
             </div>
             <div class="total">总价：<em>100元</em></div>
             <div class="operate_btn">
@@ -107,8 +91,8 @@
 
         <div class="r_wrap fr clearfix">
             <ul class="detail_tab clearfix">
-                <li class="active">商品介绍</li>
-                <li>评论</li>
+                <li class="active" id="detail">商品介绍</li>
+                <li id="comment">评论</li>
             </ul>
 
             <div class="tab_content">
@@ -138,7 +122,7 @@
                 'books_count': books_count,
                 'csrfmiddlewaretoken': csrf
             }
-    
+
             $.post('/cart/add/', params, function (data) {
                 if (data.res == 5){
                     // 添加成功
@@ -213,26 +197,29 @@ $(function () {
     })
 
     // 获取评论
-    $.ajax({
-        url: '/comment/comment/' + $('#comment-input').data('bookid'),
-        success: function (res) {
-            if (res.code === 200) {
-                var data = res.data;
-                console.log(data);
-                var div_head = '<div>';
-                var div_tail = '</div>';
-                var dom_element = ''
-                for(i = 0; i < data.length; i++) {
-                    var head = '<div>';
-                    var tail = '</div>';
-                    var temp = head + '<span>' + data[i].user_id + '</span>' + '<br>' + '<span>' + data[i].content + '</span>' + tail;
-                    dom_element += temp;
+    function get_comment() {
+        $.ajax({
+            url: '/comment/comment/' + $('#comment-input').data('bookid'),
+            success: function (res) {
+                if (res.code === 200) {
+                    var data = res.data;
+                    console.log(data);
+                    var div_head = '<div>';
+                    var div_tail = '</div>';
+                    var dom_element = ''
+                    for(i = 0; i < data.length; i++) {
+                        var head = '<div>';
+                        var tail = '</div>';
+                        var temp = head + '<span>' + data[i].user_id + '</span>' + ': ' + '<span>' + data[i].content + '</span>' + tail;
+                        dom_element += temp;
+                    }
+                    dom_element = div_head + dom_element + div_tail;
+                    $('#book_comment').html(dom_element);
                 }
-                dom_element = div_head + dom_element + div_tail;
-                $('#book_comment').append(dom_element);
             }
-        }
-    })
+        })
+    }
+
 
     $('#detail').click(function () {
         $(this).addClass('active');
@@ -241,6 +228,7 @@ $(function () {
         $('#book_detail').show();
     })
     $('#comment').click(function () {
+        get_comment();
         $(this).addClass('active');
         $('#detail').removeClass('active');
         $('#book_comment').show();
