@@ -1,3 +1,5 @@
+{% extends 'users/base.html' %}
+{% load staticfiles %}
 <style type="text/css">
 .comment {
     background-color: #c40000;
@@ -14,8 +16,6 @@
     text-align: center;
 }
 </style>
-{% extends 'users/base.html' %}
-{% load staticfiles %}
 {% block title %}尚硅谷书店-首页{% endblock title %}
 {% block body %}
     <div class="navbar_con">
@@ -46,13 +46,13 @@
     <div class="breadcrumb">
         <a href="#">全部分类</a>
         <span>></span>
-        <a href="#">Python</a>
+        <a href="#">{{ type_title }}</a>
         <span>></span>
         <a href="#">商品详情</a>
     </div>
 
     <div class="book_detail_con clearfix">
-        <div class="book_detail_pic fl"><img src="{% static books.image %}"></div>
+        <div class="book_detail_pic fl"><img style="width: 350px;height: 350px" src="{% static books.image.url %}"></div>
 
         <div class="book_detail_list fr">
             <h3>{{ books.name }}</h3>
@@ -96,7 +96,7 @@
                 <ul>
                     {% for book in books_li %}
                     <li>
-                        <a href="{% url 'books:detail' books_id=books.id %}"><img src="{% static book.image %}"></a>
+                        <a href="{% url 'books:detail' books_id=books.id %}"><img src="{% static book.image.url %}"></a>
                         <h4><a href="{% url 'books:detail' books_id=books.id %}">{{ book.name }}</a></h4>
                         <div class="price">￥{{ book.price }}</div>
                     </li>

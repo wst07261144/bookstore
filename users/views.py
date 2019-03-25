@@ -6,6 +6,7 @@ import logging
 from django.http import HttpResponse, JsonResponse
 from utils.decorators import login_required
 from django.core.paginator import Paginator
+from utils.get_hash import get_hash
 
 # Create your views here.
 def register(request):
@@ -35,7 +36,7 @@ def register_handle(request):
     # 进行业务处理:注册，向账户系统中添加账户
     # Passport.objects.create(username=username, password=password, email=email)
     try:
-        Passport.objects.create(username=username, password=password, email=email)
+        Passport.objects.create(username=username, password=get_hash(password), email=email)
     except Exception as e:
         print("e: ", e)  # 把异常打印出来
         return render(request, 'users/register.html', {'errmsg': '用户名已存在！'})
@@ -71,7 +72,7 @@ def login_check(request):
         return JsonResponse({'res': 2})
 
     # 3.进行处理:根据用户名和密码查找账户信息
-    passport = Passport.objects.get_one_passport(username=username, password=password)
+    passport = Passport.objects.get(username=username, password=get_hash(password))
 
     if passport:
         next_url = reverse('books:index')  # /user/

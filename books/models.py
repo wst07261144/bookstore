@@ -42,7 +42,7 @@ class BooksManager(models.Manager):
 
 class Books(BaseModel):
     '''商品模型类'''
-    book_type_choice = ((k,v) for k, v in BOOKS_TYPE.items())
+    book_type_choice = ((k,v) for k, v in BOOKS_TYPE.items()) # （(1, 'Python'), (2, 'Javascript'), (3, '数据结构与算法'), (4, '机器学习'), (5, '操作系统'), (6, '数据库')）
     status_choices = ((k,v) for k, v in STATUS_CHOICE.items())
     type_id = models.SmallIntegerField(default=PYTHON, choices=book_type_choice, verbose_name='商品种类')
     name = models.CharField(max_length=20, verbose_name='商品名称')
