@@ -76,7 +76,7 @@
             <div class="subtitle fl">
                 <span>|</span>
                 {% for book in javascript_new %}
-                    <a href="#">{{ book.name }}</a>
+                    <a href="{% url 'books:detail' books_id=book.id  %}">{{ book.name }}</a>
                 {% endfor %}
             </div>
             <a href="#" class="book_more fr">查看更多 ></a>
@@ -88,7 +88,7 @@
                 {% for book in javascript_hot %}
                 <li>
                     <h4><a href="#">{{ book.name }}</a></h4>
-                    <a href="#"><img src="{% static book.image.url %}"></a>
+                    <a href="{% url 'books:detail' books_id=book.id %}"><img src="{% static book.image.url %}"></a>
                     <div class="price">¥ {{ book.price }}</div>
                 </li>
                 {% endfor %}
@@ -114,7 +114,7 @@
                 {% for book in algorithms_hot %}
                 <li>
                     <h4><a href="#">{{ book.name }}</a></h4>
-                    <a href="#"><img src="{% static book.image.url %}"></a>
+                    <a href="{% url 'books:detail' books_id=book.id %}"><img src="{% static book.image.url %}"></a>
                     <div class="price">¥ {{ book.price }}</div>
                 </li>
                 {% endfor %}
@@ -140,7 +140,7 @@
                 {% for book in machinelearning_hot %}
                 <li>
                     <h4><a href="#">{{ book.name }}</a></h4>
-                    <a href="#"><img src="{% static book.image.url %}"></a>
+                    <a href="{% url 'books:detail' books_id=book.id %}"><img src="{% static book.image.url %}"></a>
                     <div class="price">¥ {{ book.price }}</div>
                 </li>
                 {% endfor %}
@@ -166,7 +166,7 @@
                 {% for book in operatingsystem_hot %}
                 <li>
                     <h4><a href="#">{{ book.name }}</a></h4>
-                    <a href="#"><img src="{% static book.image.url %}"></a>
+                    <a href="{% url 'books:detail' books_id=book.id %}"><img src="{% static book.image.url %}"></a>
                     <div class="price">¥ {{ book.price }}</div>
                 </li>
                 {% endfor %}
@@ -192,7 +192,7 @@
                 {% for book in database_hot %}
                 <li>
                     <h4><a href="#">{{ book.name }}</a></h4>
-                    <a href="#"><img src="{% static book.image.url %}"></a>
+                    <a href="{% url 'books:detail' books_id=book.id %}"><img src="{% static book.image.url %}"></a>
                     <div class="price">¥ {{ book.price }}</div>
                 </li>
                 {% endfor %}

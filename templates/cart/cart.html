@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'users/base.html' %}
 {% load staticfiles %}
 {% block body %}
     <div class="total_count">全部商品<em>2</em>件</div> 
@@ -15,7 +15,7 @@
     <ul class="cart_list_td clearfix">
         {# 提交表单时，如果checkbox没有被选中，它的值不会被提交 #}
         <li class="col01"><input type="checkbox" name="books_ids" value="{{ book.id }}" checked></li>
-        <li class="col02"><img src="{% static book.image %}"></li>
+        <li class="col02"><img src="{% static book.image.url %}"></li>
         <li class="col03">{{ book.name }}<br><em>{{ book.price }}元/{{ book.unit }}</em></li>
         <li class="col04">{{ book.unit }}</li>
         <li class="col05">{{ book.price }}</li>

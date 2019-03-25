@@ -91,7 +91,7 @@ def cart_show(request):
         # 根据id获取商品的信息
         books = Books.objects.get_books_by_id(books_id=id)
         # 保存商品的数目
-        books.count = count
+        books.count = int(count)
         # 保存商品的小计
         books.amount = int(count) * books.price
         # books_li.append((books, count))
@@ -145,3 +145,32 @@ def cart_update(request):
     conn.hset(cart_key, books_id, books_count)
 
     return JsonResponse({'res': 5})
+
+
+# cart/views.py
+# 前端传过来的参数:商品id books_id
+# post
+# /cart/del/
+
+@login_required
+def cart_del(request):
+    '''删除用户购物车中商品的信息'''
+
+    # 接收数据
+    books_id = request.POST.get('books_id')
+
+    # 校验商品是否存放
+    if not all([books_id]):
+        return JsonResponse({'res': 1, 'errmsg': '数据不完整'})
+
+    books = Books.objects.get_books_by_id(books_id=books_id)
+    if books is None:
+        return JsonResponse({'res': 2, 'errmsg': '商品不存在'})
+
+    # 删除购物车商品信息
+    conn = get_redis_connection('default')
+    cart_key = 'cart_%d' % request.session.get('passport_id')
+    conn.hdel(cart_key, books_id)
+
+    # 返回信息
+    return JsonResponse({'res': 3})
