@@ -38,13 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'haystack', # 全文检索。# Added. haystack先添加，# Then your usual apps... 自己的app要写在haystakc后面
     'tinymce',  # 富文本编辑器
     'users',
     'books', # 商品模块
     'order',
     'comments',
     'users.templatetags.filters',  # 前端过滤器
-    'django_extensions',
+    'django_extensions',   # shell_plus
 ]
 
 TINYMCE_DEFAULT_CONFIG = {
@@ -89,6 +90,22 @@ EMAIL_HOST_USER = 'wst07261144@163.com'
 EMAIL_HOST_PASSWORD = '123qweasdzxc'
 # 收件人看到的发件人
 EMAIL_FROM = 'test<wst07261144@163.com>'
+
+# 全文检索配置
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        # 使用whoosh引擎
+        'ENGINE': 'books.whoosh_cn_backend.WhooshEngine',
+        # 'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        # 索引文件路径
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'), # Whoosh 索引文件的存放文件夹。
+    }
+}
+
+# 当添加、修改、删除数据时，自动生成索引
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 6 # 指定搜索结果每页的条数
 
 
 MIDDLEWARE = [
