@@ -279,3 +279,19 @@ def verifycode(request):
     im.save(buf, 'png')
     #将内存中的图片数据返回给客户端，MIME类型为图片png
     return HttpResponse(buf.getvalue(), 'image/png')
+
+def register_active(request, token):
+    '''用户账户激活'''
+    serializer = Serializer(settings.SECRET_KEY, 3600)
+    try:
+        info = serializer.loads(token)
+        passport_id = info['confirm']
+        # 进行用户激活
+        passport = Passport.objects.get(id=passport_id)
+        passport.is_active = True
+        passport.save()
+        # 跳转的登录页
+        return redirect(reverse('user:login'))
+    except SignatureExpired:
+        # 链接过期
+        return HttpResponse('激活链接已过期')
