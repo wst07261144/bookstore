@@ -33,7 +33,7 @@
                     <ul class="book_type_list clearfix">
                         {% for books in books_li %}
                             <li>
-                                <a href="{% url 'books:detail' books_id=books.id %}"><img src="{% static books.image %}"></a>
+                                <a href="{% url 'books:detail' books_id=books.id %}"><img src="{% static books.image.url %}"></a>
                                 <h4><a href="{% url 'books:detail' books_id=books.id %}">{{ books.name }}</a></h4>
                                 <div class="operate">
                                     <span class="prize">￥{{ books.price }}</span>

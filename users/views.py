@@ -13,7 +13,8 @@ from django.conf import settings
 from django.core.mail import send_mail
 from users.tasks import send_active_email
 import os
-
+from django_redis import get_redis_connection
+from books.models import Books
 # Create your views here.
 def register(request):
     '''显示用户注册页面'''
@@ -133,7 +134,19 @@ def user(request):
     # 获取用户的基本信息
     addr = Address.objects.get_default_address(passport_id=passport_id)
 
+    # 获取用户的最近浏览信息
+    con = get_redis_connection('default')
+    key = 'history_%d' % passport_id
+    # 取出用户最近浏览的5个商品的id
+    history_li = con.lrange(key, 0, 4)
+    # history_li = [21,20,11]
+    # print(history_li)
+    # 查询数据库,获取用户最近浏览的商品信息
+    # books_li = Books.objects.filter(id__in=history_li)
     books_li = []
+    for id in history_li:
+        books = Books.objects.get_books_by_id(books_id=id)
+        books_li.append(books)
 
     context = {
         'addr': addr,
