@@ -57,7 +57,9 @@ def order_place(request):
     total_pay = total_price + transit_price
 
     # 1,2,3
+    print(books_ids)
     books_ids = ','.join(books_ids)
+    print(books_ids)
     # 组织模板上下文
     context = {
         'addr': addr,

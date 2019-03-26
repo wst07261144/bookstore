@@ -7,6 +7,11 @@ from django.http import HttpResponse, JsonResponse
 from utils.decorators import login_required
 from django.core.paginator import Paginator
 from utils.get_hash import get_hash
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+from itsdangerous import SignatureExpired
+from django.conf import settings
+from django.core.mail import send_mail
+from users.tasks import send_active_email
 
 # Create your views here.
 def register(request):
@@ -33,14 +38,28 @@ def register_handle(request):
         # 邮箱不合法
         return render(request, 'users/register.html', {'errmsg': '邮箱不合法!'})
 
+    p = Passport.objects.check_passport(username=username)
+
+    if p:
+        return render(request, 'users/register.html', {'errmsg': '用户名已存在！'})
+
     # 进行业务处理:注册，向账户系统中添加账户
     # Passport.objects.create(username=username, password=password, email=email)
     try:
-        Passport.objects.create(username=username, password=get_hash(password), email=email)
+        passport = Passport.objects.create(username=username, password=get_hash(password), email=email)
     except Exception as e:
         print("e: ", e)  # 把异常打印出来
-        return render(request, 'users/register.html', {'errmsg': '用户名已存在！'})
+        return render(request, 'users/register.html', {'errmsg': e})
 
+    # 生成激活的token itsdangerous
+    serializer = Serializer(settings.SECRET_KEY, 3600)
+    token = serializer.dumps({'confirm': passport.id})  # 返回bytes  b'eyJhbGciOiJIUzI1NiIsImlhdCI6MTU1MzU3Nzk0NywiZXhwIjoxNTUzNTgxNTQ3fQ.eyJjb25maXJtIjoxMH0.kUKhmuBke60bkRjUcdg3bWWQhrX4kioXVXW5kMvweSE'
+    token = token.decode() # eyJhbGciOiJIUzI1NiIsImlhdCI6MTU1MzU3Nzk0NywiZXhwIjoxNTUzNTgxNTQ3fQ.eyJjb25maXJtIjoxMH0.kUKhmuBke60bkRjUcdg3bWWQhrX4kioXVXW5kMvweSE
+
+    # 给用户的邮箱发激活邮件
+    # send_mail('尚硅谷书城用户激活', '', settings.EMAIL_FROM, [email],
+    #           html_message='<a href="http://127.0.0.1:8000/user/active/%s/">http://127.0.0.1:8000/user/active/</a>' % token)
+    send_active_email.delay(token, username, email)
     # 注册完，还是返回注册页。
     return redirect(reverse('books:index'))
 

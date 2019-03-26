@@ -76,6 +76,20 @@ CACHES = {
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"
+# 发送邮件
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.126.com'
+# 126和163邮箱的SMTP端口为25； QQ邮箱使用的SMTP端口为465
+EMAIL_PORT = 25
+# 如果使用QQ邮箱发送邮件，需要开启SSL加密, 如果在aliyun上部署，也需要开启ssl加密，同时修改端口为EMAIL_PORT = 465
+# EMAIL_USE_SSL = True
+# 发送邮件的邮箱
+EMAIL_HOST_USER = 'wst07261144@163.com'
+# 在邮箱中设置的客户端授权密码
+EMAIL_HOST_PASSWORD = '123qweasdzxc'
+# 收件人看到的发件人
+EMAIL_FROM = 'test<wst07261144@163.com>'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -23,6 +23,15 @@ class PassportManager(models.Manager):
             passport = None
         return passport
 
+    def check_passport(self, username):
+        try:
+            passport = self.get(username=username)
+        except self.model.DoesNotExist:
+            passport = None
+        if passport:
+            return True
+        return False
+
 class AddressManager(models.Manager):
     '''地址模型管理器类'''
     def get_default_address(self, passport_id):
