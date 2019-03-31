@@ -35,6 +35,7 @@ sitemaps = {
 
 urlpatterns = [
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    path('admin/doc/',include('django.contrib.admindocs.urls')),
     path('admin/', admin.site.urls),
     path(r'tinymce/', include('tinymce.urls')),
     path('user/', include('users.urls', namespace='user')),
