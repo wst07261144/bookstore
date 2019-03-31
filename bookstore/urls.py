@@ -18,7 +18,23 @@ from django.urls import path, re_path
 from django.conf.urls import url
 from django.conf.urls import include
 
+from django.contrib.sitemaps import GenericSitemap
+from django.contrib.sitemaps.views import sitemap
+from django.contrib.sitemaps import views
+
+from books.models import Books
+
+info_dict = {
+    'queryset': Books.objects.all(),
+    'date_field': 'created_time',
+}
+
+sitemaps = {
+    'books': GenericSitemap(info_dict, priority=0.6)
+}
+
 urlpatterns = [
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     path('admin/', admin.site.urls),
     path(r'tinymce/', include('tinymce.urls')),
     path('user/', include('users.urls', namespace='user')),

@@ -61,6 +61,9 @@ class Books(BaseModel):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return "/books/%i/" % self.id
+
     class Meta:
         db_table = 's_books'
         verbose_name = '书籍'

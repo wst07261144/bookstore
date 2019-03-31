@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '$x-ubjee%ox67)gp85rt2vt7fmc9t_$i25*v1k9v#40_0mz5jb'
+SECRET_KEY = '$x-ubjee%ox67)gp85rt2vt7fmc9t_$i25*v1k9v#40_0mz5jb'  # 序列化session数据
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -46,7 +46,11 @@ INSTALLED_APPS = [
     'comments',
     'users.templatetags.filters',  # 前端过滤器
     'django_extensions',   # shell_plus
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
 ]
+
+SITE_ID = 1
 
 TINYMCE_DEFAULT_CONFIG = {
     'theme': 'advanced',
@@ -75,6 +79,7 @@ CACHES = {
     }
 }
 
+#  基于缓存的会话
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"
 # 发送邮件
@@ -124,7 +129,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates')], # 这里别忘记配置！
-        'APP_DIRS': True,
+        'APP_DIRS': True, # 如果'APP_DIRS': True,则直接在app的目录下寻找templates，这个是默认设置，所以最简单的是直接将templates文件夹放在app下
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
