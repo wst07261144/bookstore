@@ -38,7 +38,7 @@ Markdown==3.0.1
 matplotlib==3.0.3
 mock==2.0.0
 mysqlclient==1.4.2.post1
-numpy==1.16.2
+numpy==1.22.0
 olefile==0.44
 pandas==0.24.1
 pbr==5.1.3
